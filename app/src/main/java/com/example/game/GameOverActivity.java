@@ -39,7 +39,8 @@ public class GameOverActivity extends AppCompatActivity {
         SaveData = (Button) findViewById(R.id.btnSaveData);
         DB = new DBHelper(this);
 
-        listViewScore = (ListView) findViewById(R.id.listViewScores);
+        //vincular el tv
+        //listViewScore = (ListView) findViewById(R.id.listViewScores);
 
         //evento para jugar otra vez
         StartGameAgain.setOnClickListener(new View.OnClickListener() {
@@ -60,23 +61,13 @@ public class GameOverActivity extends AppCompatActivity {
                 boolean insercionCorrecta = DB.insertarDatos(Integer.parseInt(puntuacion));
 
                 if (insercionCorrecta){
-                    //si se realizo correctamente, mostrar los registros
                     Cursor cursor = DB.obtenerPuntuacion();
 
                     if (cursor.moveToFirst()){
+                        int puntuacionAlta = cursor.getInt(1);
 
-                        do {
-
-                            SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-                                    GameOverActivity.this,
-                                    android.R.layout.simple_list_item_2, // Layout por defecto del ListView
-                                    cursor,
-                                    new String[]{"id", "puntuacion"}, // Columnas del cursor
-                                    new int[]{android.R.id.text1, android.R.id.text2}, // IDs de las vistas en el layout
-                                    0);
-
-                            listViewScore.setAdapter(adapter);
-                        } while (cursor.moveToNext());
+                        TextView textViewClasificacion = findViewById(R.id.clasificacion);
+                        textViewClasificacion.setText("Puntuacion mas alta: " + puntuacionAlta);
                     }
                 } else {
                     Toast.makeText(GameOverActivity.this, "Error", Toast.LENGTH_SHORT).show();

@@ -40,9 +40,8 @@ public class DBHelper extends SQLiteOpenHelper {
     //metodo para mostrar los resultados
     //SELECT * ,MAX(puntuacion) FROM score ORDER BY id DESC LIMIT 5
     public Cursor obtenerPuntuacion(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * , MAX(puntuacion) FROM score ORDER BY id DESC LIMIT 5";
-        Cursor cursor = db.rawQuery(query, null);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from score where puntuacion = (select max(puntuacion) from score)", null);
         return cursor;
     }
 }

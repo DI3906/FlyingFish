@@ -69,14 +69,19 @@
         android:textStyle="bold"
         />
 
-    <ListView
-        android:id="@+id/listViewScores"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/btnSaveData"
-        android:layout_marginTop="20dp"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"
-        android:background="@android:color/background_light" />
+    <TextView
+        android:id="@+id/clasificacion"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/btnSaveData"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:text="Puntuación más alta: "
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
 
 </RelativeLayout>
