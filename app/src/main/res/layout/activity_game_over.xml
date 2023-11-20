@@ -21,11 +21,28 @@
         android:textStyle="bold"
         />
 
+    <TextView
+        android:id="@+id/puntaje"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/gameOver"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:text="Puntuje: "
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+
+
     <Button
         android:id="@+id/btnPlayAgain"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/gameOver"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/puntaje"
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:padding="10dp"
@@ -36,6 +53,30 @@
         android:textStyle="bold"
         />
 
+    <Button
+        android:id="@+id/btnSaveData"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/btnPlayAgain"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:padding="10dp"
+        android:text="Guardar y mostrar clasificacion"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
 
-    
+    <ListView
+        android:id="@+id/listViewScores"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btnSaveData"
+        android:layout_marginTop="20dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:background="@android:color/background_light" />
+
 </RelativeLayout>
