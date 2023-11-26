@@ -13,13 +13,14 @@
         android:layout_height="300dp"
         android:layout_below="@id/textView1"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/splash_icon" />
+        android:src="@drawable/imagen1" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="The Flying Fish"
+        android:text="Alimenta al pez"
+        android:fontFamily="@font/pixel"
         android:textAlignment="center"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -28,5 +29,91 @@
         android:textStyle="bold"
         android:textSize="34sp"
         />
+
+    <TextView
+        android:id="@+id/integrantes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="525dp"
+        android:fontFamily="@font/pixel_sub"
+        android:text="Integrantes del equipo:"
+        android:textAlignment="center"
+        android:textColor="#070707"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/integrante1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="562dp"
+        android:fontFamily="@font/pixel_sub"
+        android:text="Garcia Coronado Diego"
+        android:textAlignment="center"
+        android:textColor="#070707"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/integrante2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="594dp"
+        android:fontFamily="@font/pixel_sub"
+        android:text="Herrera Casanova Misael"
+        android:textAlignment="center"
+        android:textColor="#070707"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/integrante3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="626dp"
+        android:fontFamily="@font/pixel_sub"
+        android:text="Jimenez Zurita Jose"
+        android:textAlignment="center"
+        android:textColor="#070707"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/integrante4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="656dp"
+        android:fontFamily="@font/pixel_sub"
+        android:text="Lopez Martinez Jesus"
+        android:textAlignment="center"
+        android:textColor="#070707"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/integrante5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="690dp"
+        android:fontFamily="@font/pixel_sub"
+        android:text="Marroquin Bautista Ricardo"
+        android:textAlignment="center"
+        android:textColor="#070707"
+        android:textSize="20sp" />
 
 </RelativeLayout>
