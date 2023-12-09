@@ -38,13 +38,31 @@
         android:textSize="25sp"
         android:textStyle="bold" />
 
+    <EditText
+        android:id="@+id/userName"
+        android:layout_below="@+id/puntaje"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/input_style"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/pixel_sub"
+        android:hint="Ingrese su nombre."
+        android:inputType="text"
+        android:paddingLeft="25dp"
+        android:textColorHint="#000000"
+        android:textSize="20dp"
+        />
+
 
     <Button
         android:id="@+id/btnPlayAgain"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/puntaje"
+        android:layout_below="@+id/userName"
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:padding="10dp"
@@ -65,7 +83,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:padding="10dp"
-        android:text="Guardar y mostrar puntuacion mas alta"
+        android:text="Guardar y mostrar jugador TOP"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
