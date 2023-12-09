@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 public class GameOverActivity extends AppCompatActivity {
 
     private Button StartGameAgain, SaveData;
+
+    private EditText nombre;
+
     private TextView Score;
 
     private String puntuacion;
@@ -32,6 +36,8 @@ public class GameOverActivity extends AppCompatActivity {
 
         puntuacion = getIntent().getExtras().get("score").toString();
 
+        nombre =  (EditText) findViewById(R.id.userName);
+
         StartGameAgain = (Button) findViewById(R.id.btnPlayAgain);
 
         Score = (TextView) findViewById(R.id.puntaje);
@@ -39,8 +45,6 @@ public class GameOverActivity extends AppCompatActivity {
         SaveData = (Button) findViewById(R.id.btnSaveData);
         DB = new DBHelper(this);
 
-        //vincular el tv
-        //listViewScore = (ListView) findViewById(R.id.listViewScores);
 
         //evento para jugar otra vez
         StartGameAgain.setOnClickListener(new View.OnClickListener() {
@@ -58,17 +62,23 @@ public class GameOverActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                boolean insercionCorrecta = DB.insertarDatos(Integer.parseInt(puntuacion));
+                String user = nombre.getText().toString().trim();
+
+                boolean insercionCorrecta = DB.insertarDatos(user, Integer.parseInt(puntuacion));
 
                 if (insercionCorrecta){
+                    //Obtener la puntuacion mas alta
                     Cursor cursor = DB.obtenerPuntuacion();
 
                     if (cursor.moveToFirst()){
+                        String nombreJugador = cursor.getString(0);
                         int puntuacionAlta = cursor.getInt(1);
 
+                        // Mostrar la puntuacion mas alta a traves de un TextView
                         TextView textViewClasificacion = findViewById(R.id.clasificacion);
-                        textViewClasificacion.setText("Puntuacion mas alta: " + puntuacionAlta);
+                        textViewClasificacion.setText(nombreJugador + "es el jugador con: " + puntuacionAlta + ", la mas alta.");
                     }
+                    cursor.close();
                 } else {
                     Toast.makeText(GameOverActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }

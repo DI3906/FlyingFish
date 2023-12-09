@@ -16,7 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE score(id INT PRIMARY KEY, puntuacion INT)");
+        db.execSQL("CREATE TABLE score(username VARCHAR primary key, puntuacion INT)");
     }
 
     @Override
@@ -25,10 +25,24 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public Boolean insertarDatos(int puntuacion){
+//    public Boolean insertarDatos(int puntuacion){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//
+//        values.put("puntuacion", puntuacion);
+//
+//        long resultado = db.insert("score", null, values);
+//        if (resultado == -1) return false;
+//        else
+//            return true;
+//    }
+
+    //metodo para insetar datos
+    public Boolean insertarDatos(String username, int puntuacion){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        values.put("username", username);
         values.put("puntuacion", puntuacion);
 
         long resultado = db.insert("score", null, values);
@@ -37,11 +51,19 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    //metodo para mostrar los resultados
-    //SELECT * ,MAX(puntuacion) FROM score ORDER BY id DESC LIMIT 5
+    //metodo para verificar usuario
+    public Boolean checkUserName(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from score where username = ?", new String[] {username});
+        if (cursor.getCount()>0) return true;
+        else
+            return false;
+    }
+
+    //metodo para obtener la puntuacion mas alta
     public Cursor obtenerPuntuacion(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from score where puntuacion = (select max(puntuacion) from score)", null);
+        Cursor cursor = db.rawQuery("SELECT username, MAX(puntuacion) FROM score", null);
         return cursor;
     }
 }
