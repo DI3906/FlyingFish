@@ -2,9 +2,12 @@ package com.example.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,12 +22,12 @@ public class GameOverActivity extends AppCompatActivity {
 
     private EditText nombre;
 
-    private TextView Score;
+    private TextView Score, clasificacion;
 
     private String puntuacion;
 
     //base de datos
-    DBHelper DB;
+    //DBHelper DB;
 
     //vista en el activity
     private ListView listViewScore;
@@ -42,8 +45,10 @@ public class GameOverActivity extends AppCompatActivity {
 
         Score = (TextView) findViewById(R.id.puntaje);
 
+        clasificacion = (TextView) findViewById(R.id.clasificacion);
+
         SaveData = (Button) findViewById(R.id.btnSaveData);
-        DB = new DBHelper(this);
+        //DB = new DBHelper(this);
 
 
         //evento para jugar otra vez
@@ -61,30 +66,70 @@ public class GameOverActivity extends AppCompatActivity {
         SaveData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String user = nombre.getText().toString().trim();
 
-                boolean insercionCorrecta = DB.insertarDatos(user, Integer.parseInt(puntuacion));
-
-                if (insercionCorrecta){
-                    //Obtener la puntuacion mas alta
-                    Cursor cursor = DB.obtenerPuntuacion();
-
-                    if (cursor.moveToFirst()){
-                        String nombreJugador = cursor.getString(0);
-                        int puntuacionAlta = cursor.getInt(1);
-
-                        // Mostrar la puntuacion mas alta a traves de un TextView
-                        TextView textViewClasificacion = findViewById(R.id.clasificacion);
-                        textViewClasificacion.setText(nombreJugador + "es el jugador con: " + puntuacionAlta + ", la mas alta.");
-                    }
-                    cursor.close();
-                } else {
-                    Toast.makeText(GameOverActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(user) ){
+                    Toast.makeText(GameOverActivity.this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+                } else{
+                    BaseDeDatos();
+                    Toast.makeText(GameOverActivity.this, "Datos guardados", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
+
+        //METODO PARA LA BD
+        DBHelper admin = new DBHelper(this, "BD", null, 1);
+        SQLiteDatabase BD = admin.getWritableDatabase();
+
+        Cursor consulta = BD.rawQuery(
+                "SELECT * FROM puntaje WHERE score = (SELECT MAX(score) FROM puntaje)", null
+        );
+
+        if (consulta.moveToFirst()){
+            String temp_nombre = consulta.getString(0);
+            String temp_score = consulta.getString(1);
+
+            clasificacion.setText("Record: " + temp_score + " de " + temp_nombre);
+
+            //cerrar la BD
+            BD.close();
+        } else BD.close();
+    }
+
+    public void BaseDeDatos(){
+        String user = nombre.getText().toString().trim();
+
+        DBHelper admin = new DBHelper(this, "BD", null, 1);
+        SQLiteDatabase BD = admin.getWritableDatabase();
+
+        Cursor consulta = BD.rawQuery(
+                "SELECT * FROM puntaje WHERE score = (SELECT MAX(score) FROM puntaje)", null
+        );
+
+        if (consulta.moveToFirst()){
+            String temp_nombre = consulta.getString(0);
+            String temp_score = consulta.getString(1);
+
+            int puntuacionActual = Integer.parseInt(puntuacion);//conversion a entero la puntuacion q se obtiene en string
+            int bestScore = Integer.parseInt(temp_score);
+
+            if (puntuacionActual > bestScore){
+                ContentValues modificacion = new ContentValues();
+                modificacion.put("nombre", user);
+                modificacion.put("score", puntuacion);
+
+                BD.update("puntaje", modificacion, "score = " + bestScore, null);
+            }
+            BD.close();
+        } else {
+            ContentValues insertar = new ContentValues();
+
+            insertar.put("nombre", user);
+            insertar.put("score", puntuacion);
+
+            BD.insert("puntaje", null, insertar);
+            BD.close();
+        }
     }
 }
